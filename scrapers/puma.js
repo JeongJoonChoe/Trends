@@ -2,19 +2,18 @@ const cheerio = require('cheerio');
 const puppeteer = require('puppeteer');
 const Product = require('../database/productModel.js')
 
-const mShoes = 'https://us.puma.com/en/us/mens/shoes/lifestyle#srule=top-sellers&pagesize=36';
 const URLS = {
-  popMenShoes: 'https://store.nike.com/us/en_us/pw/mens-shoes/7puZoi3?sortOrder=overallrating|desc',
-  popWomenShoes: 'https://store.nike.com/us/en_us/pw/womens-shoes/7ptZoi3?sortOrder=overallrating|desc',
-  popMenShirts: 'https://store.nike.com/us/en_us/pw/mens-tops-t-shirts/7puZobp?sortOrder=overallrating|desc',
-  popWomenShirts: 'https://store.nike.com/us/en_us/pw/womens-tops-t-shirts/7ptZobp?sortOrder=overallrating|desc',
-  newMenShoes: 'https://store.nike.com/us/en_us/pw/mens-shoes/7puZoi3?sortOrder=publishdate|desc',
-  newWomenShoes: 'https://store.nike.com/us/en_us/pw/womens-shoes/7ptZoi3?sortOrder=publishdate|desc',
-  newMenShirts: 'https://store.nike.com/us/en_us/pw/mens-tops-t-shirts/7puZobp?sortOrder=publishdate|desc',
-  newWomenShirts: 'https://store.nike.com/us/en_us/pw/womens-tops-t-shirts/7ptZobp?sortOrder=publishdate|desc'
+  popMenShoes: 'https://us.puma.com/en/us/mens/shoes/lifestyle#srule=top-sellers&pagesize=36',
+  popWomenShoes: 'https://us.puma.com/en/us/womens/shoes/lifestyle#srule=top-sellers&pagesize=36',
+  popMenShirts: 'https://us.puma.com/en/us/mens/clothing/t-shirts#srule=top-sellers&pagesize=36',
+  popWomenShirts: 'https://us.puma.com/en/us/womens/clothing/t-shirts#srule=top-sellers&pagesize=36',
+  newMenShoes: 'https://us.puma.com/en/us/mens/shoes/lifestyle#srule=newest&pagesize=36',
+  newWomenShoes: 'https://us.puma.com/en/us/womens/shoes/lifestyle#srule=newest&pagesize=36',
+  newMenShirts: 'https://us.puma.com/en/us/mens/clothing/t-shirts#srule=newest&pagesize=36',
+  newWomenShirts: 'https://us.puma.com/en/us/womens/clothing/t-shirts#srule=newest&pagesize=36'
 }
 
-async function(url, type) {
+async function pumaScraper(url, type) {
   const browser = await puppeteer.launch({headless: false, ignoreHTTPSErrors: true});
   const page = await browser.newPage();
   await page.goto(url, {waitUntil: 'networkidle2'});
@@ -38,6 +37,13 @@ async function(url, type) {
       })
     }
   })
+  await browser.close();
   Product.insertMany(data);
   console.log(data);
 };
+
+(async () => {
+  for (let key in URLS) {
+    await pumaScraper(URLS[key], key);
+  }
+})();

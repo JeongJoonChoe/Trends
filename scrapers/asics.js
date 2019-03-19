@@ -3,14 +3,14 @@ const puppeteer = require('puppeteer');
 const Product = require('../database/productModel.js');
 
 const URLS = {
-  popMenShoes: 'https://store.nike.com/us/en_us/pw/mens-shoes/7puZoi3?sortOrder=overallrating|desc',
-  popWomenShoes: 'https://store.nike.com/us/en_us/pw/womens-shoes/7ptZoi3?sortOrder=overallrating|desc',
-  popMenShirts: 'https://store.nike.com/us/en_us/pw/mens-tops-t-shirts/7puZobp?sortOrder=overallrating|desc',
-  popWomenShirts: 'https://store.nike.com/us/en_us/pw/womens-tops-t-shirts/7ptZobp?sortOrder=overallrating|desc',
-  newMenShoes: 'https://store.nike.com/us/en_us/pw/mens-shoes/7puZoi3?sortOrder=publishdate|desc',
-  newWomenShoes: 'https://store.nike.com/us/en_us/pw/womens-shoes/7ptZoi3?sortOrder=publishdate|desc',
-  newMenShirts: 'https://store.nike.com/us/en_us/pw/mens-tops-t-shirts/7puZobp?sortOrder=publishdate|desc',
-  newWomenShirts: 'https://store.nike.com/us/en_us/pw/womens-tops-t-shirts/7ptZobp?sortOrder=publishdate|desc'
+  popMenShoes: 'https://www.asics.com/us/en-us/mens-shoes/c/mens-shoes',
+  popWomenShoes: 'https://www.asics.com/us/en-us/womens-shoes/c/womens-shoes',
+  popMenShirts: 'https://www.asics.com/us/en-us/mens-clothing/c/mens-clothing',
+  popWomenShirts: 'https://www.asics.com/us/en-us/womens-clothing/c/womens-clothing',
+  newMenShoes: 'https://www.asics.com/us/en-us/mens-shoes/c/mens-shoes?sort=newest',
+  newWomenShoes: 'https://www.asics.com/us/en-us/womens-shoes/c/womens-shoes?sort=newest',
+  newMenShirts: 'https://www.asics.com/us/en-us/mens-clothing/c/mens-clothing?sort=newest',
+  newWomenShirts: 'https://www.asics.com/us/en-us/womens-clothing/c/womens-clothing?sort=newest'
 }
 
 
@@ -37,12 +37,15 @@ async function asicsScraper(url, type) {
       })
     }
   })
+  await page.close();
 
   Product.insertMany(data);
 
   console.log(data);
 };
 
-for (let key in URLS) {
-  asicsScraper(URLS[key], key);
-}
+(async () => {
+  for (let key in URLS) {
+    await asicsScraper(URLS[key], key);
+  }
+})();
