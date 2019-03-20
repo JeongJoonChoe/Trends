@@ -22,6 +22,12 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "mongoose": "^5.4.19",
+    "react": "^16.8.4",
+    "react-bootstrap": "^1.0.0-beta.5",
+    "react-dom": "^16.8.4",
+    "react-leaf-carousel": "^1.2.2",
+    "react-router-dom": "^5.0.0",
+    "react-slick": "^0.23.2",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   },
@@ -32,6 +38,7 @@
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
     "puppeteer": "^1.13.0",
+    "react-alice-carousel": "^1.13.1",
     "webpack-cli": "^3.3.0"
   }
 }

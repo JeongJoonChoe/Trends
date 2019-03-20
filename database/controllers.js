@@ -1,7 +1,7 @@
 const Product = require('./productModel.js');
 
 function findMenShoes(req, res) {
-  let query = req.query.data === 'popular' ? 'popMenShoes': 'newMenShoes';
+  let query = req.query.data === 'best-selling' ? 'popMenShoes': 'newMenShoes';
 
   Product.find({type: query}, function(err, data) {
     if (err) {
@@ -14,7 +14,7 @@ function findMenShoes(req, res) {
 }
 
 function findWomenShoes(req, res) {
-  let query = req.query.data === 'popular' ? 'popWomenShoes': 'newWomenShoes';
+  let query = req.query.data === 'best-selling' ? 'popWomenShoes': 'newWomenShoes';
 
   Product.find({type: query}, function(err, data) {
     if (err) {
@@ -27,7 +27,7 @@ function findWomenShoes(req, res) {
 }
 
 function findMenShirts(req, res) {
-  let query = req.query.data === 'popular' ? 'popMenShirts': 'newMenShirts';
+  let query = req.query.data === 'best-selling' ? 'popMenShirts': 'newMenShirts';
 
   Product.find({type: query}, function(err, data) {
     if (err) {
@@ -40,7 +40,7 @@ function findMenShirts(req, res) {
 }
 
 function findWomenShirts(req, res) {
-  let query = req.query.data === 'popular' ? 'popWomenShirts': 'newWomenShirts';
+  let query = req.query.data === 'best-selling' ? 'popWomenShirts': 'newWomenShirts';
 
   Product.find({type: query}, function(err, data) {
     if (err) {

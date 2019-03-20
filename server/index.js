@@ -3,7 +3,7 @@ const cors = require('cors');
 const { findMenShoes,
   findWomenShoes,
   findMenShirts,
-  findWomenShirts} = require('../database/controllers.js');
+  findWomenShirts } = require('../database/controllers.js');
 
 const port = 3000;
 const app = express();
